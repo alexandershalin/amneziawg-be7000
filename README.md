@@ -9,8 +9,7 @@ Tested with firmware Version: 1.1.16
 4. [Enable SSH](https://github.com/openwrt-xiaomi/xmir-patcher) on your router.
 5. SSH to your router and create a `/data/usr/app/awg` directory.
 6. Put `amnezia_for_awg.conf` into this directory (copy it to your router via Samba e.g.).
-7. On the router execute the following command: `curl -L -o awg_setup.sh https://github.com/alexandershalin/amneziawg-be7000/raw/refs/heads/main/awg_setup
-.sh`
+7. On the router execute the following command: `curl -L -o awg_setup.sh https://github.com/alexandershalin/amneziawg-be7000/raw/refs/heads/main/awg_setup.sh`
 8. Make the downloaded script executable: `chmod +x awg_setup.sh`
 9. Run the script: `./awg_setup.sh`
 10. Now, the guest network should be connected to your AmneziaWG server before the router reboots.
