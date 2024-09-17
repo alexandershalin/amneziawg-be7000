@@ -8,7 +8,7 @@ if [ ! -f "$config_file" ]; then
 fi
 
 address=$(awk -F' = ' '/^Address/ {print $2}' "$config_file")
-echo "Address: $address"
+echo "Amnezia WG client address: $address"
 
 if [ -f "$interface_config" ]; then
     echo "$interface_config already exists"
@@ -25,9 +25,9 @@ if [ ! -f "awg" ] || [ ! -f "amneziawg-go" ]; then
     chmod +x /data/usr/app/awg/amneziawg-go
     chmod +x /data/usr/app/awg/awg 
     rm /data/usr/app/awg/awg.tar.gz    
-    echo "Archive downloaded and unpacked."
+    echo "Archive downloaded and unpacked. Setting up awg0 interface"
 else
-    echo "AmneziaWG binaries exist, setting up awg0 interface."
+    echo "AmneziaWG binaries exist, setting up awg0 interface"
 fi
 
 
@@ -84,6 +84,7 @@ fi
 uci commit firewall
 
 # Clear routes cache and restart firewall
+echo "Restarting firewall..."
 ip route flush cache
 /etc/init.d/firewall reload
 
