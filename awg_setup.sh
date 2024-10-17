@@ -8,7 +8,10 @@ if [ ! -f "$config_file" ]; then
 fi
 
 address=$(awk -F' = ' '/^Address/ {print $2}' "$config_file")
+dns=$(awk -F' = ' '/^DNS/ {print $2}' "$config_file")
+dns=$(echo $dns | cut -d',' -f1)
 echo "Amnezia WG client address: $address"
+echo "DNS: $dns"
 
 if [ -f "$interface_config" ]; then
     echo "$interface_config already exists"
@@ -34,7 +37,6 @@ fi
 # Set up AmneziaWG interface
 /data/usr/app/awg/amneziawg-go awg0
 /data/usr/app/awg/awg setconf awg0 /data/usr/app/awg/awg0.conf
-#ip a add 10.8.1.21/32 dev awg0
 ip a add $address dev awg0
 ip l set up awg0
 
@@ -60,8 +62,8 @@ iptables -A FORWARD -i br-guest -o awg0 -j ACCEPT
 iptables -A FORWARD -i awg0 -o br-guest -j ACCEPT
 
 # Set up NAT for DNS requests from guest network
-iptables -t nat -A PREROUTING -p udp -s 192.168.33.0/24 --dport 53 -j DNAT --to-destination 8.8.8.8:53
-iptables -t nat -A PREROUTING -p tcp -s 192.168.33.0/24 --dport 53 -j DNAT --to-destination 8.8.8.8:53
+iptables -t nat -A PREROUTING -p udp -s 192.168.33.0/24 --dport 53 -j DNAT --to-destination ${dns}:53
+iptables -t nat -A PREROUTING -p tcp -s 192.168.33.0/24 --dport 53 -j DNAT --to-destination ${dns}:53
 
 # Set up NAT
 iptables -t nat -A POSTROUTING -s 192.168.33.0/24 -o awg0 -j MASQUERADE
