@@ -14,7 +14,7 @@ Tested with firmware Version: 1.1.16
 9. Run the script: `./awg_setup.sh`
 10. Now, the guest network should be connected to your AmneziaWG server before the router reboots.
 
-Binaried built from official sources: https://github.com/amnezia-vpn/
+Binaries built from official sources: https://github.com/amnezia-vpn/
 
 Useful links:
 https://github.com/itdoginfo/domain-routing-openwrt
