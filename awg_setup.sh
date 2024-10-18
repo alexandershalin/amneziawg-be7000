@@ -10,7 +10,7 @@ fi
 address=$(awk -F' = ' '/^Address/ {print $2}' "$config_file")
 dns=$(awk -F' = ' '/^DNS/ {print $2}' "$config_file")
 dns=$(echo $dns | cut -d',' -f1)
-echo "Amnezia WG client address: $address"
+echo "AmneziaWG client address: $address"
 echo "DNS: $dns"
 
 if [ -f "$interface_config" ]; then
