@@ -23,10 +23,12 @@ fi
 # Downloading AmneziaWG binaries if needed
 if [ ! -f "awg" ] || [ ! -f "amneziawg-go" ]; then
     echo "AmneziaWG not found. Downloading..."    
-    curl -L -o awg.tar.gz https://github.com/alexandershalin/amneziawg-be7000/raw/main/awg.tar.gz   
+    curl -L -o awg.tar.gz https://github.com/alexandershalin/amneziawg-be7000/raw/main/awg.tar.gz
+    curl -L -o clear_firewall_settings.sh https://github.com/alexandershalin/amneziawg-be7000/raw/main/clear_firewall_settings.sh
     tar -xzvf /data/usr/app/awg/awg.tar.gz
     chmod +x /data/usr/app/awg/amneziawg-go
     chmod +x /data/usr/app/awg/awg 
+    chmod +x /data/usr/app/awg/clear_firewall_settings.sh
     rm /data/usr/app/awg/awg.tar.gz    
     echo "Archive downloaded and unpacked. Setting up awg0 interface"
 else
